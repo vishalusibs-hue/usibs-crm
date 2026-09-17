@@ -1090,15 +1090,6 @@
           </button>
         </div>
       </form>
-
-      <div class="demo-credentials">
-        <div><strong>Quick Fill Demo Login:</strong></div>
-        <div style="margin-top: 6px;">
-          <span class="badge" onclick="fillCreds('admin', 'admin123')">👑 Super Admin</span>
-          <span class="badge" onclick="fillCreds('pratishtha', 'pass123')">👩 Counsellor Pratishtha</span>
-          <span class="badge" onclick="fillCreds('tanya', 'pass123')">👩 Counsellor Tanya</span>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -1519,8 +1510,8 @@
             </div>
 
             <div class="form-group">
-              <label>Course <span style="color: var(--gold-light);">*</span></label>
-              <select id="lead-course" class="input-control" required></select>
+              <label>Course Interested <span style="color: var(--gold-light);">*</span></label>
+              <input type="text" id="lead-course" class="input-control" placeholder="Type course name (e.g. Professional Makeup, Cosmetology)" required>
             </div>
 
             <div class="form-group">
@@ -1899,10 +1890,7 @@
       document.getElementById('login-page').style.display = 'flex';
     }
 
-    function fillCreds(u, p) {
-      document.getElementById('login-username').value = u;
-      document.getElementById('login-password').value = p;
-    }
+    
 
     window.addEventListener('DOMContentLoaded', () => {
       const savedUser = sessionStorage.getItem('usibs_crm_current_user');
@@ -2009,7 +1997,7 @@
         statuses.forEach(st => { sel.innerHTML += `<option value="${st}">${st}</option>`; });
       });
 
-      const courseSelects = [document.getElementById('lead-course'), document.getElementById('filter-course')];
+      const courseSelects = [document.getElementById('filter-course')];
       courseSelects.forEach(sel => {
         if (!sel) return;
         const isFilter = sel.id.startsWith('filter');
@@ -2371,7 +2359,7 @@
       const name = document.getElementById('lead-name').value.trim();
       const mobile = document.getElementById('lead-mobile').value.trim();
       const alternate = document.getElementById('lead-alternate').value.trim();
-      const course = document.getElementById('lead-course').value;
+      const course = document.getElementById('lead-course').value.trim();
       const location = document.getElementById('lead-location').value.trim();
       const source = document.getElementById('lead-source').value;
       const owner = document.getElementById('lead-owner').value;
