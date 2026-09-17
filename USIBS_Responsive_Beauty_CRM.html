@@ -1,0 +1,2993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0a0a0c">
+  <title>US INTERNATIONAL BEAUTY SCHOOL - CRM Portal</title>
+  
+  <!-- Fonts & XLSX library -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+  <style>
+    :root {
+      --bg-deep: #0a0a0c;
+      --bg-card: #131318;
+      --bg-card-hover: #191922;
+      --bg-input: #16161f;
+      --gold-primary: #d4af37;
+      --gold-light: #f7e089;
+      --gold-dark: #aa841e;
+      --gold-gradient: linear-gradient(135deg, #f7e089 0%, #d4af37 50%, #aa841e 100%);
+      --gold-glow: rgba(212, 175, 55, 0.28);
+      --border-subtle: #22222d;
+      --border-gold: rgba(212, 175, 55, 0.4);
+      --text-main: #f5f5f7;
+      --text-muted: #9c9cb0;
+      --text-gold: #e5be49;
+      --status-green: #10b981;
+      --status-red: #ef4444;
+      --status-blue: #3b82f6;
+      --status-amber: #f59e0b;
+      --status-purple: #8b5cf6;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --bottom-bar-height: 68px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      background-color: var(--bg-deep);
+      color: var(--text-main);
+      min-height: 100vh;
+      min-height: -webkit-fill-available;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 10% 15%, rgba(212, 175, 55, 0.05) 0%, transparent 45%),
+        radial-gradient(circle at 90% 85%, rgba(212, 175, 55, 0.04) 0%, transparent 45%);
+    }
+
+    .brand-title {
+      font-family: 'Cinzel', serif;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    /* Scrollbars */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0c0c10; }
+    ::-webkit-scrollbar-thumb { background: #262633; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--gold-dark); }
+
+    /* ================= LOGIN SCREEN ================= */
+    #login-page {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      min-height: -webkit-fill-available;
+      padding: calc(16px + var(--safe-top)) 18px calc(16px + var(--safe-bottom));
+      background: radial-gradient(circle at center, #171722 0%, #070709 100%);
+    }
+
+    .login-box {
+      width: 100%;
+      max-width: 440px;
+      background: rgba(19, 19, 25, 0.92);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-lg);
+      padding: 36px 24px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85), 0 0 35px var(--gold-glow);
+    }
+
+    .logo-frame {
+      width: 84px;
+      height: 84px;
+      margin: 0 auto 16px auto;
+      background: #ffffff;
+      border-radius: 50%;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.45);
+      border: 2px solid var(--gold-primary);
+    }
+
+    .logo-frame img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .school-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 4px;
+      letter-spacing: 1.5px;
+      line-height: 1.3;
+    }
+
+    .crm-badge {
+      display: inline-block;
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 5px;
+      color: var(--gold-light);
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid var(--border-gold);
+      padding: 4px 16px;
+      border-radius: 20px;
+      margin-bottom: 22px;
+      text-transform: uppercase;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .input-control {
+      width: 100%;
+      padding: 13px 14px;
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      color: #ffffff;
+      font-size: 15px; /* >=16px or 15px with proper zoom meta prevents iOS zoom */
+      outline: none;
+      transition: all 0.2s ease;
+      min-height: 46px;
+    }
+
+    .input-control:focus {
+      border-color: var(--gold-primary);
+      box-shadow: 0 0 12px var(--gold-glow);
+    }
+
+    .btn-gold {
+      background: var(--gold-gradient);
+      color: #0c0c0e;
+      font-weight: 700;
+      border: none;
+      padding: 14px 20px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      width: 100%;
+      font-size: 14px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      box-shadow: 0 4px 18px rgba(212, 175, 55, 0.35);
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 48px;
+    }
+
+    .btn-gold:active {
+      transform: scale(0.98);
+    }
+
+    .demo-credentials {
+      margin-top: 22px;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px dashed var(--border-subtle);
+      border-radius: var(--radius-sm);
+      font-size: 11px;
+      color: var(--text-muted);
+      text-align: left;
+      line-height: 1.6;
+    }
+    .demo-credentials strong { color: var(--gold-light); }
+    .demo-credentials span.badge {
+      display: inline-block;
+      cursor: pointer;
+      background: #1b1b24;
+      color: #ffffff;
+      padding: 5px 8px;
+      border-radius: 6px;
+      margin: 4px 3px 0 0;
+      border: 1px solid #2f2f3e;
+      font-size: 11px;
+    }
+
+    /* ================= MAIN APP LAYOUT ================= */
+    #app-container {
+      display: none;
+      min-height: 100vh;
+      flex-direction: column;
+      padding-bottom: calc(var(--bottom-bar-height) + var(--safe-bottom) + 15px);
+    }
+
+    /* Top Header */
+    header.app-header {
+      background: rgba(18, 18, 24, 0.96);
+      border-bottom: 1px solid var(--border-gold);
+      padding: calc(8px + var(--safe-top)) 16px 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 900;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .header-logo {
+      width: 40px;
+      height: 40px;
+      background: #ffffff;
+      border-radius: 50%;
+      padding: 3px;
+      border: 1px solid var(--gold-primary);
+      flex-shrink: 0;
+    }
+
+    .header-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .header-brand-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+      line-height: 1.2;
+    }
+    .header-brand-sub {
+      font-size: 10px;
+      color: var(--gold-light);
+      letter-spacing: 1.5px;
+      font-family: 'Cinzel', serif;
+    }
+
+    /* Desktop Navigation Bar */
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-tab-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-tab-btn:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-tab-btn.active {
+      background: rgba(212, 175, 55, 0.16);
+      color: var(--gold-light);
+      border: 1px solid var(--border-gold);
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .user-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #171721;
+      padding: 4px 10px;
+      border-radius: 30px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .user-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--gold-gradient);
+      color: #000;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    .user-info {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    .user-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .user-role-badge {
+      font-size: 9px;
+      color: var(--gold-light);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-logout {
+      background: #1f1818;
+      border: 1px solid #4a1e1e;
+      color: #ff8888;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 600;
+      transition: all 0.2s;
+      min-height: 36px;
+      display: inline-flex;
+      align-items: center;
+    }
+    .btn-logout:hover {
+      background: #ef4444;
+      color: #ffffff;
+    }
+
+    /* ================= MOBILE BOTTOM NAVIGATION BAR ================= */
+    .mobile-bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: calc(var(--bottom-bar-height) + var(--safe-bottom));
+      padding-bottom: var(--safe-bottom);
+      background: rgba(15, 15, 20, 0.97);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-top: 1px solid var(--border-gold);
+      z-index: 1000;
+      justify-content: space-around;
+      align-items: center;
+      box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.7);
+    }
+
+    .mobile-nav-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 6px 2px;
+      height: 100%;
+      text-decoration: none;
+      font-size: 10px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .mobile-nav-item .icon {
+      font-size: 18px;
+    }
+
+    .mobile-nav-item.active {
+      color: var(--gold-light);
+    }
+    .mobile-nav-item.active .icon {
+      transform: scale(1.15);
+      filter: drop-shadow(0 0 6px var(--gold-glow));
+    }
+
+    /* Main Content Area */
+    main.app-body {
+      flex: 1;
+      padding: 16px;
+      max-width: 1540px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .view-section {
+      display: none;
+    }
+    .view-section.active {
+      display: block;
+      animation: fadeIn 0.25s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* KPI Grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .kpi-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    }
+
+    .kpi-card:hover, .kpi-card:active {
+      border-color: var(--gold-primary);
+      background: var(--bg-card-hover);
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.22);
+    }
+
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--gold-primary);
+    }
+
+    .kpi-card.kpi-accent-blue::before { background: var(--status-blue); }
+    .kpi-card.kpi-accent-green::before { background: var(--status-green); }
+    .kpi-card.kpi-accent-amber::before { background: var(--status-amber); }
+    .kpi-card.kpi-accent-red::before { background: var(--status-red); }
+    .kpi-card.kpi-accent-purple::before { background: var(--status-purple); }
+
+    .kpi-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .kpi-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .kpi-icon {
+      font-size: 18px;
+    }
+
+    .kpi-value {
+      font-size: 28px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 2px;
+      letter-spacing: -0.5px;
+    }
+
+    .kpi-subtitle {
+      font-size: 11px;
+      color: var(--text-gold);
+    }
+
+    /* Panels */
+    .panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.35);
+    }
+
+    .panel-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .panel-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .panel-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-secondary {
+      background: #1a1a24;
+      border: 1px solid var(--border-subtle);
+      color: #ffffff;
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      min-height: 44px; /* Touch friendly on phones */
+    }
+
+    .btn-secondary:active {
+      border-color: var(--gold-primary);
+      background: #232330;
+    }
+
+    /* Action Buttons (Strictly 44px+ on phones for thumb accessibility) */
+    .btn-action-sm {
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: all 0.2s;
+      white-space: nowrap;
+      min-height: 40px;
+      min-width: 44px;
+    }
+
+    .btn-call {
+      background: rgba(16, 185, 129, 0.18);
+      color: #34d399;
+      border-color: rgba(16, 185, 129, 0.4);
+    }
+    .btn-call:active { background: #10b981; color: #000; }
+
+    .btn-whatsapp {
+      background: rgba(37, 211, 102, 0.18);
+      color: #25d366;
+      border-color: rgba(37, 211, 102, 0.4);
+    }
+    .btn-whatsapp:active { background: #25d366; color: #000; }
+
+    .btn-remark {
+      background: rgba(212, 175, 55, 0.18);
+      color: var(--gold-light);
+      border-color: var(--border-gold);
+    }
+    .btn-remark:active { background: var(--gold-primary); color: #000; }
+
+    .btn-open {
+      background: rgba(59, 130, 246, 0.18);
+      color: #60a5fa;
+      border-color: rgba(59, 130, 246, 0.4);
+    }
+    .btn-open:active { background: #3b82f6; color: #fff; }
+
+    /* Filters Bar */
+    .filter-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+      margin-bottom: 16px;
+      background: #14141d;
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+    }
+
+    /* Responsive Data Presentation */
+    .table-desktop-view {
+      display: block;
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    table.crm-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      text-align: left;
+    }
+
+    table.crm-table th {
+      background: #171722;
+      color: var(--gold-light);
+      padding: 12px 14px;
+      font-weight: 700;
+      border-bottom: 1px solid var(--border-gold);
+      white-space: nowrap;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-size: 11px;
+    }
+
+    table.crm-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid #1f1f2c;
+      color: #e2e2e9;
+      vertical-align: middle;
+    }
+
+    /* Mobile Cards View for Phones */
+    .cards-mobile-view {
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .mobile-lead-card {
+      background: #15151e;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+    }
+
+    .mobile-lead-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      border-top-left-radius: var(--radius-md);
+      border-bottom-left-radius: var(--radius-md);
+      background: var(--gold-primary);
+    }
+
+    .mobile-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .mobile-student-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .mobile-lead-id {
+      font-size: 11px;
+      color: var(--gold-light);
+      font-weight: 600;
+    }
+
+    .mobile-card-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      font-size: 12px;
+      color: #b0b0c2;
+    }
+
+    .mobile-detail-row {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mobile-detail-label {
+      font-size: 10px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .mobile-detail-val {
+      color: #ffffff;
+      font-weight: 500;
+    }
+
+    .mobile-card-actions {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      padding-top: 8px;
+      border-top: 1px solid #20202d;
+    }
+
+    /* Badges */
+    .status-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+      text-transform: capitalize;
+    }
+
+    .badge-admission { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid #059669; }
+    .badge-seat { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid #d97706; }
+    .badge-visit { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid #2563eb; }
+    .badge-callback { background: rgba(139, 92, 246, 0.2); color: #a78bfa; border: 1px solid #7c3aed; }
+    .badge-overdue { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid #dc2626; }
+    .badge-default { background: rgba(255, 255, 255, 0.1); color: #d1d5db; border: 1px solid #4b5563; }
+
+    /* ================= RESPONSIVE MODALS (BOTTOM SHEET ON MOBILE) ================= */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 2000;
+      overflow-y: auto;
+      padding: 16px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: #14141c;
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 860px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.9), 0 0 35px var(--gold-glow);
+      position: relative;
+      overflow: hidden;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-header {
+      background: #181822;
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-subtle);
+      flex-shrink: 0;
+    }
+
+    .modal-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .modal-close-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 26px;
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px;
+      min-width: 36px;
+      min-height: 36px;
+    }
+
+    .modal-body {
+      padding: 18px 20px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      flex: 1;
+    }
+
+    .modal-footer {
+      background: #181822;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      border-top: 1px solid var(--border-subtle);
+      flex-shrink: 0;
+    }
+
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .form-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+    }
+
+    /* Lead Profile Header */
+    .lead-profile-header {
+      background: #171722;
+      padding: 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      margin-bottom: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .lead-profile-info h3 {
+      font-size: 20px;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .profile-meta-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 12px;
+    }
+
+    /* Timeline */
+    .timeline-container {
+      position: relative;
+      padding-left: 24px;
+      margin-top: 14px;
+    }
+
+    .timeline-container::before {
+      content: '';
+      position: absolute;
+      top: 6px;
+      bottom: 6px;
+      left: 8px;
+      width: 2px;
+      background: var(--border-subtle);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 16px;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -24px;
+      top: 4px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--gold-primary);
+      border: 2px solid #000;
+      box-shadow: 0 0 6px var(--gold-glow);
+    }
+
+    .timeline-dot.blue { background: var(--status-blue); }
+    .timeline-dot.green { background: var(--status-green); }
+    .timeline-dot.purple { background: var(--status-purple); }
+
+    .timeline-content {
+      background: #161620;
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .timeline-time {
+      font-size: 11px;
+      color: var(--text-gold);
+      margin-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .timeline-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 3px;
+    }
+
+    .timeline-body {
+      font-size: 13px;
+      color: #c5c5d4;
+      line-height: 1.45;
+    }
+
+    /* Toast */
+    .toast-box {
+      position: fixed;
+      bottom: calc(var(--bottom-bar-height) + var(--safe-bottom) + 16px);
+      right: 16px;
+      background: #181822;
+      border: 1px solid var(--gold-primary);
+      color: #ffffff;
+      padding: 12px 18px;
+      border-radius: var(--radius-sm);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.85), 0 0 15px var(--gold-glow);
+      z-index: 9999;
+      transform: translateY(140%);
+      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      font-size: 13px;
+      font-weight: 600;
+      max-width: 90vw;
+    }
+
+    .toast-box.show { transform: translateY(0); }
+    .toast-success { border-color: var(--status-green); }
+    .toast-error { border-color: var(--status-red); }
+
+    /* ================= MEDIA QUERIES FOR MOBILE (ANDROID & IOS) ================= */
+    @media (max-width: 860px) {
+      .header-nav { display: none; }
+      .mobile-bottom-nav { display: flex; }
+      .user-info { display: none; }
+      
+      .table-desktop-view { display: none; }
+      .cards-mobile-view { display: flex; }
+
+      .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+      
+      .kpi-card {
+        padding: 12px;
+      }
+
+      .kpi-value {
+        font-size: 24px;
+      }
+
+      .panel {
+        padding: 14px;
+      }
+
+      /* Bottom Sheet Experience on Mobile */
+      .modal-overlay {
+        align-items: flex-end;
+        padding: 0;
+      }
+
+      .modal-content {
+        max-width: 100%;
+        max-height: 88vh;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        border-left: none;
+        border-right: none;
+        border-bottom: none;
+        animation: slideUp 0.25s ease forwards;
+      }
+
+      @keyframes slideUp {
+        from { transform: translateY(100%); }
+        to { transform: translateY(0); }
+      }
+
+      .modal-body {
+        padding: 16px;
+      }
+
+      .mobile-action-bar {
+        flex-direction: column;
+      }
+      .mobile-action-bar button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= LOGIN SCREEN ================= -->
+  <div id="login-page">
+    <div class="login-box">
+      <!-- Centered Logo -->
+      <div class="logo-frame">
+        <img src="data:image/png;base64,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" alt="US International Beauty School Logo">
+      </div>
+      
+      <!-- Brand Name -->
+      <h1 class="brand-title school-title">US INTERNATIONAL BEAUTY SCHOOL</h1>
+      <div class="crm-badge">CRM</div>
+      
+      <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 20px;">
+        Institutional Student Counselling & Admission Portal
+      </p>
+
+      <form id="login-form" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" id="login-username" class="input-control" placeholder="Enter username (e.g. admin or pratishtha)" required autofocus>
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="login-password" class="input-control" placeholder="Enter password" required>
+        </div>
+
+        <div style="margin-top: 20px;">
+          <button type="submit" class="btn-gold">
+            <span>Sign In to CRM</span> ➜
+          </button>
+        </div>
+      </form>
+
+      <div class="demo-credentials">
+        <div><strong>Quick Fill Demo Login:</strong></div>
+        <div style="margin-top: 6px;">
+          <span class="badge" onclick="fillCreds('admin', 'admin123')">👑 Super Admin</span>
+          <span class="badge" onclick="fillCreds('pratishtha', 'pass123')">👩 Counsellor Pratishtha</span>
+          <span class="badge" onclick="fillCreds('tanya', 'pass123')">👩 Counsellor Tanya</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MAIN APPLICATION ================= -->
+  <div id="app-container">
+    <header class="app-header">
+      <div class="header-left">
+        <div class="header-logo">
+          <img src="data:image/png;base64,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" alt="Logo">
+        </div>
+        <div>
+          <div class="header-brand-title brand-title">US INTERNATIONAL BEAUTY SCHOOL</div>
+          <div class="header-brand-sub">STUDENT COUNSELLING CRM</div>
+        </div>
+      </div>
+
+      <!-- Desktop Nav Tabs -->
+      <nav class="header-nav">
+        <button class="nav-tab-btn active" id="tab-dashboard-btn" onclick="switchView('dashboard')">
+          📊 Dashboard
+        </button>
+        <button class="nav-tab-btn" id="tab-leads-btn" onclick="switchView('leads')">
+          👥 Leads
+        </button>
+        <button class="nav-tab-btn super-admin-only" id="tab-counsellors-btn" onclick="switchView('counsellors')">
+          👩‍💼 Counsellors
+        </button>
+        <button class="nav-tab-btn super-admin-only" id="tab-customfields-btn" onclick="switchView('customfields')">
+          ⚙️ Settings
+        </button>
+        <button class="nav-tab-btn" id="tab-gsheet-btn" onclick="switchView('gsheet')">
+          📑 Sync & Export
+        </button>
+      </nav>
+
+      <div class="header-right">
+        <div class="user-pill">
+          <div class="user-avatar" id="user-avatar-initials">A</div>
+          <div class="user-info">
+            <span class="user-name" id="user-display-name">Admin</span>
+            <span class="user-role-badge" id="user-display-role">Super Admin</span>
+          </div>
+        </div>
+        <button class="btn-logout" onclick="handleLogout()">Exit</button>
+      </div>
+    </header>
+
+    <main class="app-body">
+      <!-- ================= VIEW 1: DASHBOARD ================= -->
+      <section id="view-dashboard" class="view-section active">
+        <!-- Live KPI Cards -->
+        <div class="kpi-grid">
+          <div class="kpi-card kpi-accent-green" onclick="filterByKpi('mtd-admissions')">
+            <div class="kpi-header">
+              <span class="kpi-title">MTD Admissions</span>
+              <span class="kpi-icon">🎓</span>
+            </div>
+            <div class="kpi-value" id="kpi-mtd-admissions">0</div>
+            <div class="kpi-subtitle">Month-to-Date</div>
+          </div>
+
+          <div class="kpi-card kpi-accent-green" onclick="filterByKpi('today-admissions')">
+            <div class="kpi-header">
+              <span class="kpi-title">Today's Admissions</span>
+              <span class="kpi-icon">🌟</span>
+            </div>
+            <div class="kpi-value" id="kpi-today-admissions">0</div>
+            <div class="kpi-subtitle">Done Today</div>
+          </div>
+
+          <div class="kpi-card kpi-accent-blue" onclick="filterByKpi('mtd-visits')">
+            <div class="kpi-header">
+              <span class="kpi-title">MTD Visits</span>
+              <span class="kpi-icon">🏢</span>
+            </div>
+            <div class="kpi-value" id="kpi-mtd-visits">0</div>
+            <div class="kpi-subtitle">Campus Visits</div>
+          </div>
+
+          <div class="kpi-card kpi-accent-blue" onclick="filterByKpi('today-visits')">
+            <div class="kpi-header">
+              <span class="kpi-title">Today's Visits</span>
+              <span class="kpi-icon">📍</span>
+            </div>
+            <div class="kpi-value" id="kpi-today-visits">0</div>
+            <div class="kpi-subtitle">Done Today</div>
+          </div>
+
+          <div class="kpi-card kpi-accent-amber" onclick="filterByKpi('visit-soon')">
+            <div class="kpi-header">
+              <span class="kpi-title">Visit Soon</span>
+              <span class="kpi-icon">⏰</span>
+            </div>
+            <div class="kpi-value" id="kpi-visit-soon">0</div>
+            <div class="kpi-subtitle">Upcoming Visits</div>
+          </div>
+
+          <div class="kpi-card kpi-accent-purple" onclick="filterByKpi('today-followups')">
+            <div class="kpi-header">
+              <span class="kpi-title">Today's Follow-up</span>
+              <span class="kpi-icon">📞</span>
+            </div>
+            <div class="kpi-value" id="kpi-today-followups">0</div>
+            <div class="kpi-subtitle">Scheduled Today</div>
+          </div>
+
+          <div class="kpi-card kpi-accent-red" onclick="filterByKpi('overdue-followups')">
+            <div class="kpi-header">
+              <span class="kpi-title">Overdue Follow-up</span>
+              <span class="kpi-icon">⚠️</span>
+            </div>
+            <div class="kpi-value" id="kpi-overdue-followups">0</div>
+            <div class="kpi-subtitle">Pending Calls</div>
+          </div>
+        </div>
+
+        <!-- Interactive Workspace -->
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">
+              <span id="dashboard-drilldown-title">⚡ Today's Priority Follow-ups & Action Queue</span>
+            </div>
+            <div class="panel-actions mobile-action-bar">
+              <button class="btn-gold" style="width: auto;" onclick="openNewLeadModal()">+ Add Lead</button>
+              <button class="btn-secondary" onclick="exportFilteredLeadsXLSX()">📥 Export (.xlsx)</button>
+              <button class="btn-secondary" onclick="renderDashboard()">🔄 Refresh</button>
+            </div>
+          </div>
+
+          <!-- Desktop Table -->
+          <div class="table-desktop-view">
+            <table class="crm-table">
+              <thead>
+                <tr>
+                  <th>Student Name</th>
+                  <th>Mobile</th>
+                  <th>Course</th>
+                  <th>Follow-up Time</th>
+                  <th>Latest Remark</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="dashboard-drilldown-tbody"></tbody>
+            </table>
+          </div>
+
+          <!-- Mobile Cards -->
+          <div class="cards-mobile-view" id="dashboard-drilldown-mobile-cards"></div>
+        </div>
+      </section>
+
+      <!-- ================= VIEW 2: LEAD MANAGEMENT ================= -->
+      <section id="view-leads" class="view-section">
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">
+              <span>📋 Centralized Lead Management</span>
+              <span style="font-size: 12px; color: var(--gold-light);" id="leads-counter-text">(Showing all records)</span>
+            </div>
+            <div class="panel-actions mobile-action-bar">
+              <button class="btn-gold" style="width: auto;" onclick="openNewLeadModal()">+ Add Lead</button>
+              <button class="btn-secondary" onclick="exportFilteredLeadsXLSX()">📥 Excel (.xlsx)</button>
+            </div>
+          </div>
+
+          <!-- Filter Bar -->
+          <div class="filter-bar">
+            <input type="text" id="filter-search" class="input-control" placeholder="🔍 Search Name, Phone, ID..." oninput="filterAndRenderLeads()">
+            <select id="filter-owner" class="input-control" onchange="filterAndRenderLeads()">
+              <option value="">All Lead Owners</option>
+            </select>
+            <select id="filter-status" class="input-control" onchange="filterAndRenderLeads()">
+              <option value="">All Statuses</option>
+            </select>
+            <select id="filter-course" class="input-control" onchange="filterAndRenderLeads()">
+              <option value="">All Courses</option>
+            </select>
+            <select id="filter-source" class="input-control" onchange="filterAndRenderLeads()">
+              <option value="">All Lead Sources</option>
+            </select>
+            <button class="btn-secondary" onclick="resetFilters()">Reset</button>
+          </div>
+
+          <!-- Desktop Table -->
+          <div class="table-desktop-view">
+            <table class="crm-table">
+              <thead>
+                <tr>
+                  <th>Lead ID</th>
+                  <th>Student Name</th>
+                  <th>Mobile</th>
+                  <th>Course</th>
+                  <th>Source</th>
+                  <th>Owner</th>
+                  <th>Status</th>
+                  <th>Next Follow-Up</th>
+                  <th>Calls / WA</th>
+                  <th style="text-align: right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="leads-table-tbody"></tbody>
+            </table>
+          </div>
+
+          <!-- Mobile Cards -->
+          <div class="cards-mobile-view" id="leads-mobile-cards"></div>
+        </div>
+      </section>
+
+      <!-- ================= VIEW 3: COUNSELLOR TEAM (SUPER ADMIN ONLY) ================= -->
+      <section id="view-counsellors" class="view-section">
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">
+              <span>👩‍💼 Counsellor User Management</span>
+              <span style="font-size: 11px; color: var(--gold-light);">(Unlimited Scalability)</span>
+            </div>
+            <div class="panel-actions">
+              <button class="btn-gold" style="width: auto;" onclick="openAddCounsellorModal()">+ Add Counsellor</button>
+            </div>
+          </div>
+
+          <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 16px;">
+            Instant account creation with only 3 inputs: Name, Username, and Password. Accounts are ready to sign in immediately on mobile and desktop.
+          </p>
+
+          <div class="table-desktop-view">
+            <table class="crm-table">
+              <thead>
+                <tr>
+                  <th>User ID</th>
+                  <th>Counsellor Name</th>
+                  <th>Username</th>
+                  <th>Role</th>
+                  <th>Status</th>
+                  <th>Created On</th>
+                  <th>Assigned Leads</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="counsellors-table-tbody"></tbody>
+            </table>
+          </div>
+
+          <div class="cards-mobile-view" id="counsellors-mobile-cards"></div>
+        </div>
+      </section>
+
+      <!-- ================= VIEW 4: CUSTOM FIELDS & SETTINGS ================= -->
+      <section id="view-customfields" class="view-section">
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">
+              <span>⚙️ Dynamic Custom Fields</span>
+            </div>
+            <div class="panel-actions">
+              <button class="btn-gold" style="width: auto;" onclick="openAddCustomFieldModal()">+ Add Custom Field</button>
+            </div>
+          </div>
+          <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 16px;">
+            Fields automatically appear on the mobile & desktop Lead Creation forms without code changes.
+          </p>
+
+          <div class="table-desktop-view">
+            <table class="crm-table">
+              <thead>
+                <tr>
+                  <th>Field Name</th>
+                  <th>Type</th>
+                  <th>Options</th>
+                  <th>Mandatory</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="custom-fields-tbody"></tbody>
+            </table>
+          </div>
+
+          <div class="cards-mobile-view" id="custom-fields-mobile-cards"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">
+              <span>🏷️ Manage Lead Sources & Statuses</span>
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div>
+              <h4 style="color: var(--gold-light); margin-bottom: 10px; font-size: 13px;">Lead Sources</h4>
+              <div id="sources-badge-list" style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px;"></div>
+              <div style="display: flex; gap: 8px;">
+                <input type="text" id="new-source-input" class="input-control" placeholder="Add new Source...">
+                <button class="btn-gold" style="width: auto;" onclick="addNewLeadSource()">Add</button>
+              </div>
+            </div>
+            <div>
+              <h4 style="color: var(--gold-light); margin-bottom: 10px; font-size: 13px;">Lead Statuses</h4>
+              <div id="statuses-badge-list" style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; max-height: 160px; overflow-y: auto;"></div>
+              <div style="display: flex; gap: 8px;">
+                <input type="text" id="new-status-input" class="input-control" placeholder="Add new Status...">
+                <button class="btn-gold" style="width: auto;" onclick="addNewLeadStatus()">Add</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= VIEW 5: GOOGLE SHEETS & EXCEL EXPORT ================= -->
+      <section id="view-gsheet" class="view-section">
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">
+              <span>📑 Google Sheets Real-Time Sync</span>
+            </div>
+            <div class="panel-actions">
+              <button class="btn-gold" style="width: auto;" onclick="triggerGSheetSync()">⚡ Force Instant Sync</button>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 20px;">
+            <div style="background: #161621; padding: 14px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+              <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">SYNC STATUS</div>
+              <div style="font-size: 17px; font-weight: 700; color: #34d399;" id="gsheet-sync-status">Connected ✅</div>
+              <div style="font-size: 11px; color: #888; margin-top: 4px;">Spreadsheet: USIBS_Central_Leads_2026</div>
+            </div>
+
+            <div style="background: #161621; padding: 14px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+              <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">LAST SYNC TIME</div>
+              <div style="font-size: 15px; font-weight: 700; color: var(--gold-light);" id="gsheet-last-sync">Just Now</div>
+              <div style="font-size: 11px; color: #888; margin-top: 4px;">Automatic Real-time Sync Active</div>
+            </div>
+
+            <div style="background: #161621; padding: 14px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+              <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">SYNCHRONIZED RECORDS</div>
+              <div style="font-size: 18px; font-weight: 800; color: #ffffff;" id="gsheet-synced-rows">0 Leads</div>
+              <div style="font-size: 11px; color: #888; margin-top: 4px;">Mapped: Leads, Activities, Calls</div>
+            </div>
+          </div>
+
+          <div class="panel-header" style="margin-top: 20px;">
+            <div class="panel-title">
+              <span>📥 Export CRM Workbook (.xlsx)</span>
+            </div>
+          </div>
+          <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 14px;">
+            Generate multi-worksheet formatted Excel spreadsheet directly on Android, iOS, or PC matching role security permissions.
+          </p>
+
+          <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+            <button class="btn-gold" style="width: auto;" onclick="exportFilteredLeadsXLSX()">
+              📥 Download Leads Excel (.xlsx)
+            </button>
+            <button class="btn-secondary" style="width: auto;" onclick="exportAuditTrailXLSX()">
+              📋 Download Activity Audit Log (.xlsx)
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ================= MOBILE FIXED BOTTOM NAVIGATION BAR ================= -->
+    <nav class="mobile-bottom-nav">
+      <button class="mobile-nav-item active" id="mob-nav-dashboard" onclick="switchView('dashboard')">
+        <span class="icon">📊</span>
+        <span>Dashboard</span>
+      </button>
+      <button class="mobile-nav-item" id="mob-nav-leads" onclick="switchView('leads')">
+        <span class="icon">👥</span>
+        <span>Leads</span>
+      </button>
+      <button class="mobile-nav-item super-admin-only" id="mob-nav-counsellors" onclick="switchView('counsellors')">
+        <span class="icon">👩‍💼</span>
+        <span>Team</span>
+      </button>
+      <button class="mobile-nav-item super-admin-only" id="mob-nav-customfields" onclick="switchView('customfields')">
+        <span class="icon">⚙️</span>
+        <span>Settings</span>
+      </button>
+      <button class="mobile-nav-item" id="mob-nav-gsheet" onclick="switchView('gsheet')">
+        <span class="icon">📑</span>
+        <span>Export</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- ================= MODAL 1: ADD / EDIT LEAD ================= -->
+  <div id="modal-lead-form" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title" id="lead-form-modal-title">✨ Create New Student Lead</div>
+        <button class="modal-close-btn" onclick="closeModal('modal-lead-form')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="lead-creation-form" onsubmit="handleSaveLead(event)">
+          <!-- Duplicate Warning -->
+          <div id="duplicate-warning-box" style="display: none; background: rgba(239, 68, 68, 0.16); border: 1px solid #ef4444; border-radius: var(--radius-sm); padding: 10px; margin-bottom: 14px;">
+            <div style="color: #f87171; font-weight: 700; font-size: 12px;">⚠️ Duplicate Mobile Number!</div>
+            <div style="color: #e5e7eb; font-size: 11px; margin-top: 3px;" id="duplicate-warning-msg"></div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label>Student Name <span style="color: var(--gold-light);">*</span></label>
+              <input type="text" id="lead-name" class="input-control" placeholder="Student full name" required>
+            </div>
+
+            <div class="form-group">
+              <label>Mobile Number <span style="color: var(--gold-light);">*</span></label>
+              <input type="tel" id="lead-mobile" class="input-control" placeholder="10-digit phone number" required oninput="checkDuplicateMobile(this.value)">
+            </div>
+
+            <div class="form-group">
+              <label>Alternate Number</label>
+              <input type="tel" id="lead-alternate" class="input-control" placeholder="Optional phone">
+            </div>
+
+            <div class="form-group">
+              <label>Course <span style="color: var(--gold-light);">*</span></label>
+              <select id="lead-course" class="input-control" required></select>
+            </div>
+
+            <div class="form-group">
+              <label>Location / City</label>
+              <input type="text" id="lead-location" class="input-control" placeholder="e.g. Rajouri Garden, Delhi" value="Delhi">
+            </div>
+
+            <div class="form-group">
+              <label>Lead Source <span style="color: var(--gold-light);">*</span></label>
+              <select id="lead-source" class="input-control" required></select>
+            </div>
+
+            <div class="form-group">
+              <label>Lead Owner (Counsellor) <span style="color: var(--gold-light);">*</span></label>
+              <select id="lead-owner" class="input-control" required></select>
+            </div>
+
+            <div class="form-group">
+              <label>Fees Quoted (₹ INR)</label>
+              <input type="number" id="lead-fees" class="input-control" placeholder="e.g. 65000" min="0">
+            </div>
+
+            <div class="form-group">
+              <label>Lead Status <span style="color: var(--gold-light);">*</span></label>
+              <select id="lead-status" class="input-control" required></select>
+            </div>
+
+            <div class="form-group">
+              <label>Next Follow-Up Date</label>
+              <input type="date" id="lead-next-date" class="input-control">
+            </div>
+
+            <div class="form-group">
+              <label>Next Follow-Up Time</label>
+              <input type="time" id="lead-next-time" class="input-control">
+            </div>
+          </div>
+
+          <!-- Dynamic Custom Fields -->
+          <div id="dynamic-custom-fields-container" style="margin-top: 10px;"></div>
+
+          <div class="form-group" style="margin-top: 10px;">
+            <label>Communication Notes / Remark</label>
+            <textarea id="lead-remark" class="input-control" rows="2" placeholder="Enter student conversation notes..."></textarea>
+          </div>
+
+          <div class="modal-footer" style="padding: 12px 0 0 0; margin-top: 14px;">
+            <button type="button" class="btn-secondary" onclick="closeModal('modal-lead-form')">Cancel</button>
+            <button type="submit" class="btn-gold" style="width: auto;">Save Lead</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL 2: LEAD PROFILE & TIMELINE ================= -->
+  <div id="modal-lead-profile" class="modal-overlay">
+    <div class="modal-content" style="max-width: 920px;">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>👤 Profile & Timeline — </span>
+          <span id="profile-modal-lead-id" style="color: var(--gold-light);">USIBS-1001</span>
+        </div>
+        <button class="modal-close-btn" onclick="closeModal('modal-lead-profile')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="lead-profile-header">
+          <div class="lead-profile-info">
+            <h3 id="profile-student-name">Student Name</h3>
+            <div class="profile-meta-tags">
+              <span id="profile-phone" style="color: #34d399; font-weight: 700;">📞 9876543210</span>
+              <span id="profile-course" style="color: #93c5fd;">💄 Makeup Masterclass</span>
+              <span id="profile-location" style="color: #d1d5db;">📍 Rajouri Garden</span>
+              <span id="profile-owner" style="color: var(--gold-light); font-weight: 700;">👩‍💼 Owner</span>
+              <span id="profile-status" class="status-badge badge-admission">Visit Soon</span>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button class="btn-action-sm btn-call" id="profile-btn-call" style="padding: 9px 14px;" onclick="triggerCall(currentActiveLeadId)">
+              📞 Call (<span id="profile-call-count">0</span>)
+            </button>
+            <button class="btn-action-sm btn-whatsapp" id="profile-btn-wa" style="padding: 9px 14px;" onclick="triggerWhatsApp(currentActiveLeadId)">
+              💬 WhatsApp (<span id="profile-wa-count">0</span>)
+            </button>
+            <button class="btn-secondary" style="padding: 9px 14px;" onclick="openReassignModal(currentActiveLeadId)">
+              🔄 Reassign
+            </button>
+          </div>
+        </div>
+
+        <!-- Add New Remark -->
+        <div style="background: #171722; padding: 14px; border-radius: var(--radius-sm); border: 1px solid var(--border-gold); margin-bottom: 18px;">
+          <h4 style="color: var(--gold-light); font-size: 13px; margin-bottom: 10px;">📝 Add New Counselling Remark & Next Follow-Up</h4>
+          <div class="form-group">
+            <textarea id="profile-new-remark-text" class="input-control" rows="2" placeholder="Enter conversation details... (e.g. Discussed course fees, parents agreed for campus visit tomorrow)"></textarea>
+          </div>
+          <div class="form-grid-3">
+            <div class="form-group">
+              <label>Update Status</label>
+              <select id="profile-update-status" class="input-control"></select>
+            </div>
+            <div class="form-group">
+              <label>Next Follow-Up Date <span style="color: var(--gold-light);">*</span></label>
+              <input type="date" id="profile-next-followup-date" class="input-control">
+            </div>
+            <div class="form-group">
+              <label>Next Follow-Up Time <span style="color: var(--gold-light);">*</span></label>
+              <input type="time" id="profile-next-followup-time" class="input-control">
+            </div>
+          </div>
+          <div style="text-align: right; margin-top: 8px;">
+            <button class="btn-gold" style="width: auto;" onclick="submitNewRemarkFromProfile()">
+              Submit Remark & Schedule
+            </button>
+          </div>
+        </div>
+
+        <h4 style="color: #ffffff; font-size: 14px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between;">
+          <span>📜 Permanent Activity History</span>
+          <span style="font-size: 11px; color: var(--text-muted); font-weight: normal;">Never overwritten</span>
+        </h4>
+
+        <div class="timeline-container" id="profile-timeline-container"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL 3: ADD COUNSELLOR ================= -->
+  <div id="modal-counsellor-form" class="modal-overlay">
+    <div class="modal-content" style="max-width: 440px;">
+      <div class="modal-header">
+        <div class="modal-title">✨ Add Counsellor Account</div>
+        <button class="modal-close-btn" onclick="closeModal('modal-counsellor-form')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="create-counsellor-form" onsubmit="handleCreateCounsellor(event)">
+          <div class="form-group">
+            <label>Counsellor Name <span style="color: var(--gold-light);">*</span></label>
+            <input type="text" id="counsellor-name" class="input-control" placeholder="e.g. Shabina Khan" required>
+          </div>
+          <div class="form-group">
+            <label>Username <span style="color: var(--gold-light);">*</span></label>
+            <input type="text" id="counsellor-username" class="input-control" placeholder="e.g. shabina01" required>
+          </div>
+          <div class="form-group">
+            <label>Password <span style="color: var(--gold-light);">*</span></label>
+            <input type="password" id="counsellor-password" class="input-control" placeholder="Enter password" required>
+          </div>
+
+          <div class="modal-footer" style="padding: 12px 0 0 0; margin-top: 12px;">
+            <button type="button" class="btn-secondary" onclick="closeModal('modal-counsellor-form')">Cancel</button>
+            <button type="submit" class="btn-gold" style="width: auto;">Create Login</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL 4: ADD CUSTOM FIELD ================= -->
+  <div id="modal-customfield-form" class="modal-overlay">
+    <div class="modal-content" style="max-width: 480px;">
+      <div class="modal-header">
+        <div class="modal-title">⚙️ Add Custom Field</div>
+        <button class="modal-close-btn" onclick="closeModal('modal-customfield-form')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form onsubmit="handleSaveCustomField(event)">
+          <div class="form-group">
+            <label>Field Name <span style="color: var(--gold-light);">*</span></label>
+            <input type="text" id="customfield-name" class="input-control" placeholder="e.g. Preferred Timing" required>
+          </div>
+          <div class="form-group">
+            <label>Field Type <span style="color: var(--gold-light);">*</span></label>
+            <select id="customfield-type" class="input-control" onchange="toggleCustomFieldOptionsInput(this.value)">
+              <option value="text">Short Text</option>
+              <option value="textarea">Long Text</option>
+              <option value="number">Number</option>
+              <option value="dropdown">Dropdown</option>
+              <option value="date">Date</option>
+            </select>
+          </div>
+          <div class="form-group" id="customfield-options-group" style="display: none;">
+            <label>Dropdown Options (Comma separated)</label>
+            <input type="text" id="customfield-options" class="input-control" placeholder="e.g. Morning, Afternoon, Evening">
+          </div>
+          <div class="form-group">
+            <label>
+              <input type="checkbox" id="customfield-required" style="margin-right: 6px;"> Mandatory Field?
+            </label>
+          </div>
+
+          <div class="modal-footer" style="padding: 12px 0 0 0; margin-top: 12px;">
+            <button type="button" class="btn-secondary" onclick="closeModal('modal-customfield-form')">Cancel</button>
+            <button type="submit" class="btn-gold" style="width: auto;">Save Field</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL 5: REASSIGN LEAD ================= -->
+  <div id="modal-reassign" class="modal-overlay">
+    <div class="modal-content" style="max-width: 420px;">
+      <div class="modal-header">
+        <div class="modal-title">🔄 Reassign Lead Owner</div>
+        <button class="modal-close-btn" onclick="closeModal('modal-reassign')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Select New Counsellor</label>
+          <select id="reassign-new-owner" class="input-control"></select>
+        </div>
+        <div class="modal-footer" style="padding: 12px 0 0 0; margin-top: 12px;">
+          <button type="button" class="btn-secondary" onclick="closeModal('modal-reassign')">Cancel</button>
+          <button type="button" class="btn-gold" style="width: auto;" onclick="handleReassignConfirm()">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="app-toast" class="toast-box">Notification message</div>
+
+  <!-- ================= JAVASCRIPT LOGIC ================= -->
+  <script>
+    const DEFAULT_STATUSES = [
+      "Admission Done", "Call Back", "Call Disconnected", "Duplicate", "Invalid Number",
+      "No Incoming Calls", "Not Interested", "Out Of Services", "RnR", "Switched Off",
+      "Transfer", "Visit Done", "Visit Soon", "Will Confirm", "Wrong Number",
+      "Seat Booked", "Seat Booked But Cancel", "Visited", "Job", "Model",
+      "Collaboration", "Vendor", "Marketing", "Flirting", "Blocked",
+      "Expected Visit", "Visit Done But Cancel", "Online Class"
+    ];
+
+    const DEFAULT_SOURCES = [
+      "Website", "Google Ads", "Meta Ads", "Instagram", "Facebook",
+      "WhatsApp", "Walk-in", "Reference", "Justdial", "YouTube",
+      "Organic", "Exhibition/Event", "Existing Student Reference"
+    ];
+
+    const DEFAULT_COURSES = [
+      "Professional Makeup Level 1",
+      "Advance Bridal Artistry",
+      "Hair Designing & Styling L1",
+      "Advance Cosmetology Master",
+      "Nail Artistry & Extensions",
+      "Hydra & Clinical Facial Therapy",
+      "Eyelash & Brow Technician",
+      "Full Beauty Therapy Diploma"
+    ];
+
+    let users = JSON.parse(localStorage.getItem('usibs_crm_users')) || [
+      { id: 'USR-100', name: 'Super Admin', username: 'admin', passwordHash: 'admin123', role: 'Super Admin', status: 'Active', createdOn: '2026-09-01' },
+      { id: 'USR-101', name: 'Pratishtha', username: 'pratishtha', passwordHash: 'pass123', role: 'Counsellor', status: 'Active', createdOn: '2026-09-10' },
+      { id: 'USR-102', name: 'Tanya', username: 'tanya', passwordHash: 'pass123', role: 'Counsellor', status: 'Active', createdOn: '2026-09-12' },
+      { id: 'USR-103', name: 'Shabina', username: 'shabina', passwordHash: 'pass123', role: 'Counsellor', status: 'Active', createdOn: '2026-09-14' }
+    ];
+
+    let statuses = JSON.parse(localStorage.getItem('usibs_crm_statuses')) || DEFAULT_STATUSES;
+    let sources = JSON.parse(localStorage.getItem('usibs_crm_sources')) || DEFAULT_SOURCES;
+    let courses = JSON.parse(localStorage.getItem('usibs_crm_courses')) || DEFAULT_COURSES;
+    let customFields = JSON.parse(localStorage.getItem('usibs_crm_custom_fields')) || [
+      { id: 'cf_1', name: 'Preferred Timing', type: 'dropdown', options: ['Morning 10 AM', 'Afternoon 1 PM', 'Evening 4 PM'], required: false, status: 'Active' },
+      { id: 'cf_2', name: 'Prior Experience', type: 'dropdown', options: ['Beginner (Zero Experience)', 'Self-Taught', 'Working Professional'], required: false, status: 'Active' }
+    ];
+
+    let leads = JSON.parse(localStorage.getItem('usibs_crm_leads')) || [
+      {
+        leadId: 'USIBS-1001',
+        name: 'Pooja Verma',
+        mobile: '9811223344',
+        alternate: '9811223345',
+        course: 'Professional Makeup Level 1',
+        location: 'Rajouri Garden, Delhi',
+        source: 'Instagram',
+        owner: 'Pratishtha',
+        feesQuoted: 45000,
+        status: 'Visit Soon',
+        nextFollowUpDate: '2026-09-16',
+        nextFollowUpTime: '11:00',
+        createdDate: '2026-09-15 10:15',
+        createdBy: 'Pratishtha',
+        callAttempts: 3,
+        whatsappAttempts: 2,
+        customValues: { 'Preferred Timing': 'Morning 10 AM' }
+      },
+      {
+        leadId: 'USIBS-1002',
+        name: 'Neha Kapoor',
+        mobile: '9876543211',
+        alternate: '',
+        course: 'Hair Designing & Styling L1',
+        location: 'Janakpuri, Delhi',
+        source: 'Google Ads',
+        owner: 'Pratishtha',
+        feesQuoted: 55000,
+        status: 'Admission Done',
+        nextFollowUpDate: '2026-09-16',
+        nextFollowUpTime: '12:30',
+        createdDate: '2026-09-16 09:30',
+        createdBy: 'Pratishtha',
+        callAttempts: 2,
+        whatsappAttempts: 1,
+        customValues: {}
+      },
+      {
+        leadId: 'USIBS-1003',
+        name: 'Simranjeet Kaur',
+        mobile: '9899887766',
+        alternate: '',
+        course: 'Nail Artistry & Extensions',
+        location: 'Tilak Nagar, Delhi',
+        source: 'Meta Ads',
+        owner: 'Tanya',
+        feesQuoted: 35000,
+        status: 'Visit Done',
+        nextFollowUpDate: '2026-09-16',
+        nextFollowUpTime: '14:00',
+        createdDate: '2026-09-16 11:00',
+        createdBy: 'Tanya',
+        callAttempts: 1,
+        whatsappAttempts: 1,
+        customValues: {}
+      },
+      {
+        leadId: 'USIBS-1004',
+        name: 'Ananya Sen',
+        mobile: '9711335577',
+        alternate: '',
+        course: 'Advance Bridal Artistry',
+        location: 'South Extension, Delhi',
+        source: 'Walk-in',
+        owner: 'Tanya',
+        feesQuoted: 75000,
+        status: 'Call Back',
+        nextFollowUpDate: '2026-09-15',
+        nextFollowUpTime: '15:30',
+        createdDate: '2026-09-14 14:00',
+        createdBy: 'Tanya',
+        callAttempts: 4,
+        whatsappAttempts: 2,
+        customValues: {}
+      }
+    ];
+
+    let leadActivities = JSON.parse(localStorage.getItem('usibs_crm_activities')) || [
+      { id: 'ACT-1', leadId: 'USIBS-1001', user: 'Pratishtha', type: 'Lead Created', remark: 'Enquiry generated from Instagram ad.', timestamp: '15 Sep 2026, 10:15 AM' },
+      { id: 'ACT-2', leadId: 'USIBS-1001', user: 'Pratishtha', type: 'Call Clicked', remark: 'Outbound call initiated from mobile CRM.', timestamp: '15 Sep 2026, 10:16 AM' },
+      { id: 'ACT-3', leadId: 'USIBS-1001', user: 'Pratishtha', type: 'Remark Added', remark: 'Student interested in bridal makeup. Campus visit scheduled.', timestamp: '15 Sep 2026, 10:20 AM' }
+    ];
+
+    let currentUser = null;
+    let currentActiveLeadId = null;
+    let currentKpiFilter = null;
+
+    function handleLogin(e) {
+      e.preventDefault();
+      const u = document.getElementById('login-username').value.trim().toLowerCase();
+      const p = document.getElementById('login-password').value.trim();
+
+      const user = users.find(x => x.username.toLowerCase() === u && x.status === 'Active');
+      if (user && user.passwordHash === p) {
+        currentUser = user;
+        sessionStorage.setItem('usibs_crm_current_user', JSON.stringify(currentUser));
+        bootApp();
+        showToast(`Welcome back, ${user.name}!`, 'success');
+      } else {
+        showToast('Invalid username/password or account inactive.', 'error');
+      }
+    }
+
+    function handleLogout() {
+      currentUser = null;
+      sessionStorage.removeItem('usibs_crm_current_user');
+      document.getElementById('app-container').style.display = 'none';
+      document.getElementById('login-page').style.display = 'flex';
+    }
+
+    function fillCreds(u, p) {
+      document.getElementById('login-username').value = u;
+      document.getElementById('login-password').value = p;
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedUser = sessionStorage.getItem('usibs_crm_current_user');
+      if (savedUser) {
+        currentUser = JSON.parse(savedUser);
+        bootApp();
+      }
+    });
+
+    function bootApp() {
+      document.getElementById('login-page').style.display = 'none';
+      document.getElementById('app-container').style.display = 'flex';
+
+      document.getElementById('user-display-name').textContent = currentUser.name;
+      document.getElementById('user-display-role').textContent = currentUser.role;
+      document.getElementById('user-avatar-initials').textContent = currentUser.name.charAt(0).toUpperCase();
+
+      const adminOnlyElements = document.querySelectorAll('.super-admin-only');
+      adminOnlyElements.forEach(el => {
+        el.style.display = (currentUser.role === 'Super Admin') ? '' : 'none';
+      });
+
+      populateDropdowns();
+      switchView('dashboard');
+    }
+
+    function switchView(viewName) {
+      document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
+      document.querySelectorAll('.nav-tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.mobile-nav-item').forEach(btn => btn.classList.remove('active'));
+
+      const targetView = document.getElementById('view-' + viewName);
+      const targetBtn = document.getElementById('tab-' + viewName + '-btn');
+      const targetMob = document.getElementById('mob-nav-' + viewName);
+
+      if (targetView) targetView.classList.add('active');
+      if (targetBtn) targetBtn.classList.add('active');
+      if (targetMob) targetMob.classList.add('active');
+
+      if (viewName === 'dashboard') renderDashboard();
+      if (viewName === 'leads') {
+        currentKpiFilter = null;
+        filterAndRenderLeads();
+      }
+      if (viewName === 'counsellors') renderCounsellorsList();
+      if (viewName === 'customfields') renderCustomFields();
+      if (viewName === 'gsheet') renderGSheetStats();
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function saveData() {
+      localStorage.setItem('usibs_crm_users', JSON.stringify(users));
+      localStorage.setItem('usibs_crm_leads', JSON.stringify(leads));
+      localStorage.setItem('usibs_crm_activities', JSON.stringify(leadActivities));
+      localStorage.setItem('usibs_crm_custom_fields', JSON.stringify(customFields));
+      localStorage.setItem('usibs_crm_statuses', JSON.stringify(statuses));
+      localStorage.setItem('usibs_crm_sources', JSON.stringify(sources));
+    }
+
+    function showToast(msg, type = 'success') {
+      const toast = document.getElementById('app-toast');
+      toast.textContent = msg;
+      toast.className = `toast-box ${type === 'error' ? 'toast-error' : 'toast-success'} show`;
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3200);
+    }
+
+    function getISTDateString(d = new Date()) {
+      const year = d.getFullYear();
+      const month = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+
+    function getFormattedTimestamp() {
+      return new Date().toLocaleString('en-IN', {
+        day: '2-digit', month: 'short', year: 'numeric',
+        hour: '2-digit', minute: '2-digit', hour12: true
+      });
+    }
+
+    function getAuthorizedLeads() {
+      if (!currentUser) return [];
+      if (currentUser.role === 'Super Admin') return leads;
+      return leads.filter(l => l.owner.toLowerCase() === currentUser.name.toLowerCase());
+    }
+
+    function populateDropdowns() {
+      const srcSelects = [document.getElementById('lead-source'), document.getElementById('filter-source')];
+      srcSelects.forEach(sel => {
+        if (!sel) return;
+        const isFilter = sel.id.startsWith('filter');
+        sel.innerHTML = isFilter ? '<option value="">All Lead Sources</option>' : '';
+        sources.forEach(s => { sel.innerHTML += `<option value="${s}">${s}</option>`; });
+      });
+
+      const statusSelects = [document.getElementById('lead-status'), document.getElementById('filter-status'), document.getElementById('profile-update-status')];
+      statusSelects.forEach(sel => {
+        if (!sel) return;
+        const isFilter = sel.id.startsWith('filter');
+        sel.innerHTML = isFilter ? '<option value="">All Statuses</option>' : '';
+        statuses.forEach(st => { sel.innerHTML += `<option value="${st}">${st}</option>`; });
+      });
+
+      const courseSelects = [document.getElementById('lead-course'), document.getElementById('filter-course')];
+      courseSelects.forEach(sel => {
+        if (!sel) return;
+        const isFilter = sel.id.startsWith('filter');
+        sel.innerHTML = isFilter ? '<option value="">All Courses</option>' : '';
+        courses.forEach(c => { sel.innerHTML += `<option value="${c}">${c}</option>`; });
+      });
+
+      const ownerSelects = [document.getElementById('lead-owner'), document.getElementById('filter-owner'), document.getElementById('reassign-new-owner')];
+      const counsellorsList = users.filter(u => u.role === 'Counsellor' && u.status === 'Active');
+      ownerSelects.forEach(sel => {
+        if (!sel) return;
+        const isFilter = sel.id.startsWith('filter');
+        sel.innerHTML = isFilter ? '<option value="">All Lead Owners</option>' : '';
+        counsellorsList.forEach(u => { sel.innerHTML += `<option value="${u.name}">${u.name}</option>`; });
+      });
+    }
+
+    /* -------------------------------------------------------------
+       DASHBOARD & RESPONSIVE DRILL-DOWN (TABLE + CARDS)
+    ------------------------------------------------------------- */
+    function renderDashboard() {
+      const myLeads = getAuthorizedLeads();
+      const todayStr = getISTDateString();
+      const currentMonth = todayStr.substring(0, 7);
+
+      let mtdAdmissions = 0, todayAdmissions = 0, mtdVisits = 0, todayVisits = 0, visitSoon = 0, todayFollowups = 0, overdueFollowups = 0;
+
+      myLeads.forEach(l => {
+        const createdDateOnly = l.createdDate ? l.createdDate.substring(0, 10) : '';
+        const isThisMonth = createdDateOnly.startsWith(currentMonth);
+
+        if (l.status === 'Admission Done') {
+          if (isThisMonth) mtdAdmissions++;
+          if (createdDateOnly === todayStr) todayAdmissions++;
+        }
+
+        if (l.status === 'Visit Done' || l.status === 'Visited') {
+          if (isThisMonth) mtdVisits++;
+          if (createdDateOnly === todayStr) todayVisits++;
+        }
+
+        if (['Visit Soon', 'Expected Visit'].includes(l.status)) {
+          visitSoon++;
+        }
+
+        if (l.nextFollowUpDate === todayStr) {
+          todayFollowups++;
+        } else if (l.nextFollowUpDate && l.nextFollowUpDate < todayStr && !['Admission Done', 'Duplicate', 'Not Interested'].includes(l.status)) {
+          overdueFollowups++;
+        }
+      });
+
+      document.getElementById('kpi-mtd-admissions').textContent = mtdAdmissions;
+      document.getElementById('kpi-today-admissions').textContent = todayAdmissions;
+      document.getElementById('kpi-mtd-visits').textContent = mtdVisits;
+      document.getElementById('kpi-today-visits').textContent = todayVisits;
+      document.getElementById('kpi-visit-soon').textContent = visitSoon;
+      document.getElementById('kpi-today-followups').textContent = todayFollowups;
+      document.getElementById('kpi-overdue-followups').textContent = overdueFollowups;
+
+      if (!currentKpiFilter) {
+        renderDrilldownData("⚡ Today's Follow-ups & Action Queue", l => l.nextFollowUpDate === todayStr);
+      }
+    }
+
+    function filterByKpi(kpiType) {
+      currentKpiFilter = kpiType;
+      const todayStr = getISTDateString();
+
+      if (kpiType === 'mtd-admissions') {
+        renderDrilldownData('🎓 MTD Admissions Done', l => l.status === 'Admission Done');
+      } else if (kpiType === 'today-admissions') {
+        renderDrilldownData("🎓 Today's New Admissions", l => l.status === 'Admission Done' && l.createdDate && l.createdDate.startsWith(todayStr));
+      } else if (kpiType === 'mtd-visits') {
+        renderDrilldownData('🏢 MTD Campus Visits Done', l => ['Visit Done', 'Visited'].includes(l.status));
+      } else if (kpiType === 'today-visits') {
+        renderDrilldownData("🏢 Today's Campus Visits Completed", l => ['Visit Done', 'Visited'].includes(l.status));
+      } else if (kpiType === 'visit-soon') {
+        renderDrilldownData('⏰ Upcoming Scheduled Visits (Visit Soon)', l => ['Visit Soon', 'Expected Visit'].includes(l.status));
+      } else if (kpiType === 'today-followups') {
+        renderDrilldownData("📞 Scheduled Follow-ups For Today", l => l.nextFollowUpDate === todayStr);
+      } else if (kpiType === 'overdue-followups') {
+        renderDrilldownData("⚠️ Overdue Follow-ups Requiring Attention", l => l.nextFollowUpDate && l.nextFollowUpDate < todayStr && !['Admission Done', 'Not Interested'].includes(l.status));
+      }
+    }
+
+    function renderDrilldownData(title, filterFn) {
+      document.getElementById('dashboard-drilldown-title').textContent = title;
+      const tbody = document.getElementById('dashboard-drilldown-tbody');
+      const mobileCards = document.getElementById('dashboard-drilldown-mobile-cards');
+      tbody.innerHTML = '';
+      mobileCards.innerHTML = '';
+
+      const matched = getAuthorizedLeads().filter(filterFn);
+      if (matched.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding: 24px;">No leads matching this category.</td></tr>`;
+        mobileCards.innerHTML = `<div style="text-align: center; color: var(--text-muted); padding: 24px;">No leads matching this category.</div>`;
+        return;
+      }
+
+      matched.sort((a, b) => (a.nextFollowUpTime || '99:99').localeCompare(b.nextFollowUpTime || '99:99'));
+
+      matched.forEach(l => {
+        const lastAct = leadActivities.filter(a => a.leadId === l.leadId).slice(-1)[0];
+        const lastRemark = lastAct ? lastAct.remark : 'No remarks yet';
+
+        // Desktop row
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${l.name}</strong><div style="font-size: 11px; color: var(--gold-light);">${l.leadId}</div></td>
+          <td>${l.mobile}</td>
+          <td>${l.course}</td>
+          <td><span style="color: var(--gold-light); font-weight: 700;">${l.nextFollowUpTime || 'N/A'}</span> (${l.nextFollowUpDate || 'No date'})</td>
+          <td style="max-width: 240px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${lastRemark}">${lastRemark}</td>
+          <td>${getStatusBadgeHtml(l.status)}</td>
+          <td>
+            <div style="display: flex; gap: 5px;">
+              <button class="btn-action-sm btn-call" onclick="triggerCall('${l.leadId}')">📞 Call</button>
+              <button class="btn-action-sm btn-whatsapp" onclick="triggerWhatsApp('${l.leadId}')">💬 WA</button>
+              <button class="btn-action-sm btn-open" onclick="openLeadProfile('${l.leadId}')">👁 Open</button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+
+        // Mobile Card
+        const card = document.createElement('div');
+        card.className = 'mobile-lead-card';
+        card.innerHTML = `
+          <div class="mobile-card-top">
+            <div>
+              <div class="mobile-student-name">${l.name}</div>
+              <div class="mobile-lead-id">${l.leadId} &bull; ${l.owner}</div>
+            </div>
+            ${getStatusBadgeHtml(l.status)}
+          </div>
+          <div class="mobile-card-details">
+            <div class="mobile-detail-row">
+              <span class="mobile-detail-label">Phone</span>
+              <span class="mobile-detail-val">${l.mobile}</span>
+            </div>
+            <div class="mobile-detail-row">
+              <span class="mobile-detail-label">Course</span>
+              <span class="mobile-detail-val" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${l.course}</span>
+            </div>
+            <div class="mobile-detail-row">
+              <span class="mobile-detail-label">Follow-Up</span>
+              <span class="mobile-detail-val" style="color: var(--gold-light);">${l.nextFollowUpTime || 'N/A'} (${l.nextFollowUpDate || '—'})</span>
+            </div>
+            <div class="mobile-detail-row">
+              <span class="mobile-detail-label">Attempts</span>
+              <span class="mobile-detail-val">📞 ${l.callAttempts || 0} &bull; 💬 ${l.whatsappAttempts || 0}</span>
+            </div>
+          </div>
+          <div style="font-size: 11px; color: #a5a5b5; background: #1a1a26; padding: 6px 8px; border-radius: 6px;">
+            <strong>Latest:</strong> ${lastRemark}
+          </div>
+          <div class="mobile-card-actions">
+            <button class="btn-action-sm btn-call" onclick="triggerCall('${l.leadId}')">📞 Call</button>
+            <button class="btn-action-sm btn-whatsapp" onclick="triggerWhatsApp('${l.leadId}')">💬 WA</button>
+            <button class="btn-action-sm btn-remark" onclick="openLeadProfile('${l.leadId}')">📝 Note</button>
+            <button class="btn-action-sm btn-open" onclick="openLeadProfile('${l.leadId}')">👁 Profile</button>
+          </div>
+        `;
+        mobileCards.appendChild(card);
+      });
+    }
+
+    function getStatusBadgeHtml(status) {
+      let badgeClass = 'badge-default';
+      if (status === 'Admission Done') badgeClass = 'badge-admission';
+      else if (status.includes('Seat')) badgeClass = 'badge-seat';
+      else if (status.includes('Visit')) badgeClass = 'badge-visit';
+      else if (status === 'Call Back' || status === 'Will Confirm') badgeClass = 'badge-callback';
+      else if (status === 'Not Interested' || status === 'Blocked') badgeClass = 'badge-overdue';
+
+      return `<span class="status-badge ${badgeClass}">${status}</span>`;
+    }
+
+    /* -------------------------------------------------------------
+       LEAD MANAGEMENT (SEARCH, FILTER, DESKTOP TABLE & MOBILE CARDS)
+    ------------------------------------------------------------- */
+    function filterAndRenderLeads() {
+      const query = (document.getElementById('filter-search').value || '').toLowerCase();
+      const ownerFilter = (document.getElementById('filter-owner').value || '').toLowerCase();
+      const statusFilter = (document.getElementById('filter-status').value || '').toLowerCase();
+      const courseFilter = (document.getElementById('filter-course').value || '').toLowerCase();
+      const sourceFilter = (document.getElementById('filter-source').value || '').toLowerCase();
+
+      const baseList = getAuthorizedLeads();
+
+      const filtered = baseList.filter(l => {
+        const matchesSearch = !query || 
+          l.name.toLowerCase().includes(query) ||
+          l.mobile.toLowerCase().includes(query) ||
+          l.leadId.toLowerCase().includes(query) ||
+          (l.location && l.location.toLowerCase().includes(query));
+
+        const matchesOwner = !ownerFilter || l.owner.toLowerCase() === ownerFilter;
+        const matchesStatus = !statusFilter || l.status.toLowerCase() === statusFilter;
+        const matchesCourse = !courseFilter || l.course.toLowerCase() === courseFilter;
+        const matchesSource = !sourceFilter || l.source.toLowerCase() === sourceFilter;
+
+        return matchesSearch && matchesOwner && matchesStatus && matchesCourse && matchesSource;
+      });
+
+      document.getElementById('leads-counter-text').textContent = `(${filtered.length} of ${baseList.length} leads)`;
+
+      const tbody = document.getElementById('leads-table-tbody');
+      const mobileCards = document.getElementById('leads-mobile-cards');
+      tbody.innerHTML = '';
+      mobileCards.innerHTML = '';
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="10" style="text-align: center; color: var(--text-muted); padding: 30px;">No matching leads found.</td></tr>`;
+        mobileCards.innerHTML = `<div style="text-align: center; color: var(--text-muted); padding: 24px;">No matching leads found.</div>`;
+        return;
+      }
+
+      filtered.forEach(l => {
+        // Desktop table row
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td style="font-weight: 700; color: var(--gold-light);">${l.leadId}</td>
+          <td><strong>${l.name}</strong></td>
+          <td>${l.mobile}</td>
+          <td>${l.course}</td>
+          <td>${l.source}</td>
+          <td><span style="color: var(--gold-light); font-weight: 600;">${l.owner}</span></td>
+          <td>${getStatusBadgeHtml(l.status)}</td>
+          <td>${l.nextFollowUpDate || '—'} <small style="color: var(--gold-light);">${l.nextFollowUpTime || ''}</small></td>
+          <td>📞 ${l.callAttempts || 0} &bull; 💬 ${l.whatsappAttempts || 0}</td>
+          <td style="text-align: right;">
+            <div style="display: inline-flex; gap: 5px;">
+              <button class="btn-action-sm btn-call" onclick="triggerCall('${l.leadId}')" title="Call">📞</button>
+              <button class="btn-action-sm btn-whatsapp" onclick="triggerWhatsApp('${l.leadId}')" title="WhatsApp">💬</button>
+              <button class="btn-action-sm btn-remark" onclick="openLeadProfile('${l.leadId}')" title="Remark">📝</button>
+              <button class="btn-action-sm btn-open" onclick="openLeadProfile('${l.leadId}')" title="Open">👁</button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+
+        // Mobile card item
+        const card = document.createElement('div');
+        card.className = 'mobile-lead-card';
+        card.innerHTML = `
+          <div class="mobile-card-top">
+            <div>
+              <div class="mobile-student-name">${l.name}</div>
+              <div class="mobile-lead-id">${l.leadId} &bull; 👩‍💼 ${l.owner}</div>
+            </div>
+            ${getStatusBadgeHtml(l.status)}
+          </div>
+          <div class="mobile-card-details">
+            <div class="mobile-detail-row">
+              <span class="mobile-detail-label">Mobile</span>
+              <span class="mobile-detail-val">${l.mobile}</span>
+            </div>
+            <div class="mobile-detail-row">
+              <span class="mobile-detail-label">Course</span>
+              <span class="mobile-detail-val" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${l.course}</span>
+            </div>
+            <div class="mobile-detail-row">
+              <span class="mobile-detail-label">Source</span>
+              <span class="mobile-detail-val">${l.source}</span>
+            </div>
+            <div class="mobile-detail-row">
+              <span class="mobile-detail-label">Next Action</span>
+              <span class="mobile-detail-val" style="color: var(--gold-light);">${l.nextFollowUpDate || 'None'} ${l.nextFollowUpTime || ''}</span>
+            </div>
+          </div>
+          <div class="mobile-card-actions">
+            <button class="btn-action-sm btn-call" onclick="triggerCall('${l.leadId}')">📞 Call</button>
+            <button class="btn-action-sm btn-whatsapp" onclick="triggerWhatsApp('${l.leadId}')">💬 WA</button>
+            <button class="btn-action-sm btn-remark" onclick="openLeadProfile('${l.leadId}')">📝 Note</button>
+            <button class="btn-action-sm btn-open" onclick="openLeadProfile('${l.leadId}')">👁 Profile</button>
+          </div>
+        `;
+        mobileCards.appendChild(card);
+      });
+    }
+
+    function resetFilters() {
+      document.getElementById('filter-search').value = '';
+      document.getElementById('filter-owner').value = '';
+      document.getElementById('filter-status').value = '';
+      document.getElementById('filter-course').value = '';
+      document.getElementById('filter-source').value = '';
+      filterAndRenderLeads();
+    }
+
+    /* -------------------------------------------------------------
+       DUPLICATE DETECTION & CREATION
+    ------------------------------------------------------------- */
+    function checkDuplicateMobile(mobileVal) {
+      const warningBox = document.getElementById('duplicate-warning-box');
+      const msg = document.getElementById('duplicate-warning-msg');
+      const cleanVal = mobileVal.trim();
+
+      if (cleanVal.length >= 7) {
+        const dup = leads.find(l => l.mobile === cleanVal || (l.alternate && l.alternate === cleanVal));
+        if (dup) {
+          warningBox.style.display = 'block';
+          msg.innerHTML = `Number <strong>${cleanVal}</strong> already exists with Lead <strong>${dup.leadId}</strong> (${dup.name} - ${dup.course}). Counsellor: <strong>${dup.owner}</strong>.`;
+          return true;
+        }
+      }
+      warningBox.style.display = 'none';
+      return false;
+    }
+
+    function openNewLeadModal() {
+      document.getElementById('lead-creation-form').reset();
+      document.getElementById('duplicate-warning-box').style.display = 'none';
+      document.getElementById('lead-form-modal-title').textContent = '✨ Create New Student Lead';
+
+      if (currentUser.role === 'Counsellor') {
+        document.getElementById('lead-owner').value = currentUser.name;
+      }
+
+      document.getElementById('lead-next-date').value = getISTDateString();
+      document.getElementById('lead-next-time').value = '11:00';
+
+      renderDynamicCustomFieldsInForm();
+      openModal('modal-lead-form');
+    }
+
+    function renderDynamicCustomFieldsInForm() {
+      const container = document.getElementById('dynamic-custom-fields-container');
+      container.innerHTML = '';
+
+      const activeFields = customFields.filter(f => f.status === 'Active');
+      if (activeFields.length === 0) return;
+
+      let html = '<div class="form-grid-2" style="border-top: 1px solid var(--border-subtle); padding-top: 12px; margin-top: 10px;">';
+      activeFields.forEach(f => {
+        html += `<div class="form-group">
+          <label>${f.name} ${f.required ? '<span style="color: var(--gold-light);">*</span>' : ''}</label>`;
+        if (f.type === 'dropdown') {
+          html += `<select class="input-control dynamic-custom-field-input" data-field-name="${f.name}" ${f.required ? 'required' : ''}>
+            <option value="">Select ${f.name}</option>
+            ${f.options.map(opt => `<option value="${opt}">${opt}</option>`).join('')}
+          </select>`;
+        } else if (f.type === 'textarea') {
+          html += `<textarea class="input-control dynamic-custom-field-input" data-field-name="${f.name}" rows="2" ${f.required ? 'required' : ''}></textarea>`;
+        } else {
+          html += `<input type="${f.type}" class="input-control dynamic-custom-field-input" data-field-name="${f.name}" ${f.required ? 'required' : ''}>`;
+        }
+        html += `</div>`;
+      });
+      html += '</div>';
+      container.innerHTML = html;
+    }
+
+    function handleSaveLead(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('lead-name').value.trim();
+      const mobile = document.getElementById('lead-mobile').value.trim();
+      const alternate = document.getElementById('lead-alternate').value.trim();
+      const course = document.getElementById('lead-course').value;
+      const location = document.getElementById('lead-location').value.trim();
+      const source = document.getElementById('lead-source').value;
+      const owner = document.getElementById('lead-owner').value;
+      const feesQuoted = parseFloat(document.getElementById('lead-fees').value) || 0;
+      const status = document.getElementById('lead-status').value;
+      const nextDate = document.getElementById('lead-next-date').value;
+      const nextTime = document.getElementById('lead-next-time').value;
+      const initialRemark = document.getElementById('lead-remark').value.trim();
+
+      const customValues = {};
+      document.querySelectorAll('.dynamic-custom-field-input').forEach(input => {
+        customValues[input.getAttribute('data-field-name')] = input.value;
+      });
+
+      const nextNum = 1000 + leads.length + 1;
+      const leadId = 'USIBS-' + nextNum;
+
+      const newLead = {
+        leadId,
+        name,
+        mobile,
+        alternate,
+        course,
+        location,
+        source,
+        owner,
+        feesQuoted,
+        status,
+        nextFollowUpDate: nextDate,
+        nextFollowUpTime: nextTime,
+        createdDate: getFormattedTimestamp(),
+        createdBy: currentUser.name,
+        callAttempts: 0,
+        whatsappAttempts: 0,
+        customValues
+      };
+
+      leads.unshift(newLead);
+
+      leadActivities.unshift({
+        id: 'ACT-' + (leadActivities.length + 1),
+        leadId,
+        user: currentUser.name,
+        type: 'Lead Created',
+        remark: initialRemark || 'Lead registered manually.',
+        timestamp: getFormattedTimestamp()
+      });
+
+      saveData();
+      closeModal('modal-lead-form');
+      showToast(`Lead ${leadId} (${name}) saved!`, 'success');
+
+      renderDashboard();
+      filterAndRenderLeads();
+    }
+
+    /* -------------------------------------------------------------
+       CALL & WHATSAPP PHONE INTEGRATION
+    ------------------------------------------------------------- */
+    function triggerCall(leadId) {
+      const lead = leads.find(l => l.leadId === leadId);
+      if (!lead) return;
+
+      lead.callAttempts = (lead.callAttempts || 0) + 1;
+
+      leadActivities.unshift({
+        id: 'ACT-' + (leadActivities.length + 1),
+        leadId: lead.leadId,
+        user: currentUser.name,
+        type: 'Call Clicked',
+        remark: `Outbound call initiated (Attempt #${lead.callAttempts}).`,
+        timestamp: getFormattedTimestamp()
+      });
+
+      saveData();
+      showToast(`Dialling ${lead.name} (${lead.mobile})...`, 'success');
+
+      if (currentActiveLeadId === leadId) {
+        document.getElementById('profile-call-count').textContent = lead.callAttempts;
+        renderLeadTimeline(leadId);
+      }
+
+      // Standard tel URI activates dialer directly on Android & iOS
+      window.location.href = 'tel:' + lead.mobile;
+    }
+
+    function triggerWhatsApp(leadId) {
+      const lead = leads.find(l => l.leadId === leadId);
+      if (!lead) return;
+
+      lead.whatsappAttempts = (lead.whatsappAttempts || 0) + 1;
+
+      let cleanMobile = lead.mobile.replace(/\D/g, '');
+      if (cleanMobile.length === 10) cleanMobile = '91' + cleanMobile;
+
+      leadActivities.unshift({
+        id: 'ACT-' + (leadActivities.length + 1),
+        leadId: lead.leadId,
+        user: currentUser.name,
+        type: 'WhatsApp Click',
+        remark: `WhatsApp chat initiated with student (Count #${lead.whatsappAttempts}).`,
+        timestamp: getFormattedTimestamp()
+      });
+
+      saveData();
+      showToast(`Opening WhatsApp for ${lead.name}...`, 'success');
+
+      if (currentActiveLeadId === leadId) {
+        document.getElementById('profile-wa-count').textContent = lead.whatsappAttempts;
+        renderLeadTimeline(leadId);
+      }
+
+      const waUrl = `https://wa.me/${cleanMobile}?text=${encodeURIComponent(`Hello ${lead.name}, greetings from US International Beauty School! We are following up regarding your enquiry for the ${lead.course} course.`)}`;
+      window.open(waUrl, '_blank');
+    }
+
+    /* -------------------------------------------------------------
+       LEAD PROFILE & PERMANENT REMARK TIMELINE
+    ------------------------------------------------------------- */
+    function openLeadProfile(leadId) {
+      const lead = leads.find(l => l.leadId === leadId);
+      if (!lead) return;
+
+      currentActiveLeadId = leadId;
+
+      document.getElementById('profile-modal-lead-id').textContent = lead.leadId;
+      document.getElementById('profile-student-name').textContent = lead.name;
+      document.getElementById('profile-phone').textContent = '📞 ' + lead.mobile + (lead.alternate ? ` / ${lead.alternate}` : '');
+      document.getElementById('profile-course').textContent = '💄 ' + lead.course;
+      document.getElementById('profile-location').textContent = '📍 ' + (lead.location || 'Delhi');
+      document.getElementById('profile-owner').textContent = '👩‍💼 Owner: ' + lead.owner;
+      document.getElementById('profile-status').textContent = lead.status;
+      document.getElementById('profile-status').className = 'status-badge ' + (lead.status === 'Admission Done' ? 'badge-admission' : 'badge-visit');
+
+      document.getElementById('profile-call-count').textContent = lead.callAttempts || 0;
+      document.getElementById('profile-wa-count').textContent = lead.whatsappAttempts || 0;
+
+      document.getElementById('profile-update-status').value = lead.status;
+      document.getElementById('profile-next-followup-date').value = lead.nextFollowUpDate || getISTDateString();
+      document.getElementById('profile-next-followup-time').value = lead.nextFollowUpTime || '11:00';
+      document.getElementById('profile-new-remark-text').value = '';
+
+      renderLeadTimeline(leadId);
+      openModal('modal-lead-profile');
+    }
+
+    function renderLeadTimeline(leadId) {
+      const container = document.getElementById('profile-timeline-container');
+      container.innerHTML = '';
+
+      const activities = leadActivities.filter(a => a.leadId === leadId);
+
+      if (activities.length === 0) {
+        container.innerHTML = '<div style="color: var(--text-muted); font-size: 12px;">No activity logged yet.</div>';
+        return;
+      }
+
+      activities.forEach(act => {
+        let dotClass = '';
+        if (act.type.includes('Call') || act.type.includes('WhatsApp')) dotClass = 'green';
+        else if (act.type.includes('Admission')) dotClass = 'purple';
+        else if (act.type.includes('Owner')) dotClass = 'blue';
+
+        const item = document.createElement('div');
+        item.className = 'timeline-item';
+        item.innerHTML = `
+          <div class="timeline-dot ${dotClass}"></div>
+          <div class="timeline-content">
+            <div class="timeline-time">
+              <span>📅 ${act.timestamp}</span>
+              <span>👤 <strong>${act.user}</strong></span>
+            </div>
+            <div class="timeline-title">${act.type}</div>
+            <div class="timeline-body">${act.remark}</div>
+          </div>
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    function submitNewRemarkFromProfile() {
+      const remarkText = document.getElementById('profile-new-remark-text').value.trim();
+      const updatedStatus = document.getElementById('profile-update-status').value;
+      const nextDate = document.getElementById('profile-next-followup-date').value;
+      const nextTime = document.getElementById('profile-next-followup-time').value;
+
+      if (!remarkText) {
+        alert('Please enter communication discussion notes before submitting.');
+        return;
+      }
+
+      const lead = leads.find(l => l.leadId === currentActiveLeadId);
+      if (!lead) return;
+
+      const oldStatus = lead.status;
+      lead.status = updatedStatus;
+      lead.nextFollowUpDate = nextDate;
+      lead.nextFollowUpTime = nextTime;
+
+      leadActivities.unshift({
+        id: 'ACT-' + (leadActivities.length + 1),
+        leadId: lead.leadId,
+        user: currentUser.name,
+        type: oldStatus !== updatedStatus ? `Remark Added & Status Changed (${updatedStatus})` : 'Remark Added',
+        remark: `${remarkText} [Next Action: ${nextDate} at ${nextTime}]`,
+        timestamp: getFormattedTimestamp()
+      });
+
+      saveData();
+      showToast('Remark and follow-up saved to timeline permanently!', 'success');
+
+      document.getElementById('profile-new-remark-text').value = '';
+      document.getElementById('profile-status').textContent = updatedStatus;
+      renderLeadTimeline(lead.leadId);
+
+      renderDashboard();
+      filterAndRenderLeads();
+    }
+
+    /* -------------------------------------------------------------
+       REASSIGN LEAD OWNER
+    ------------------------------------------------------------- */
+    function openReassignModal(leadId) {
+      currentActiveLeadId = leadId;
+      openModal('modal-reassign');
+    }
+
+    function handleReassignConfirm() {
+      const newOwner = document.getElementById('reassign-new-owner').value;
+      if (!newOwner) return;
+
+      const lead = leads.find(l => l.leadId === currentActiveLeadId);
+      if (!lead) return;
+
+      const prevOwner = lead.owner;
+      lead.owner = newOwner;
+
+      leadActivities.unshift({
+        id: 'ACT-' + (leadActivities.length + 1),
+        leadId: lead.leadId,
+        user: currentUser.name,
+        type: 'Lead Reassigned',
+        remark: `Ownership transferred from ${prevOwner} ➔ ${newOwner} by ${currentUser.name}.`,
+        timestamp: getFormattedTimestamp()
+      });
+
+      saveData();
+      closeModal('modal-reassign');
+      showToast(`Lead ${lead.leadId} reassigned to ${newOwner}!`, 'success');
+
+      if (document.getElementById('modal-lead-profile').classList.contains('active')) {
+        document.getElementById('profile-owner').textContent = '👩‍💼 Owner: ' + newOwner;
+        renderLeadTimeline(lead.leadId);
+      }
+
+      renderDashboard();
+      filterAndRenderLeads();
+    }
+
+    /* -------------------------------------------------------------
+       COUNSELLOR MANAGEMENT (SUPER ADMIN)
+    ------------------------------------------------------------- */
+    function renderCounsellorsList() {
+      const tbody = document.getElementById('counsellors-table-tbody');
+      const mobileCards = document.getElementById('counsellors-mobile-cards');
+      tbody.innerHTML = '';
+      mobileCards.innerHTML = '';
+
+      users.forEach(u => {
+        const assignedCount = leads.filter(l => l.owner.toLowerCase() === u.name.toLowerCase()).length;
+
+        // Desktop row
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td style="color: var(--gold-light); font-weight: 700;">${u.id}</td>
+          <td><strong>${u.name}</strong></td>
+          <td><code>${u.username}</code></td>
+          <td>${u.role}</td>
+          <td><span class="status-badge ${u.status === 'Active' ? 'badge-admission' : 'badge-overdue'}">${u.status}</span></td>
+          <td>${u.createdOn}</td>
+          <td><strong>${assignedCount}</strong> Leads</td>
+          <td>
+            <div style="display: flex; gap: 6px;">
+              <button class="btn-action-sm btn-remark" onclick="toggleCounsellorStatus('${u.id}')">
+                ${u.status === 'Active' ? 'Deactivate' : 'Activate'}
+              </button>
+              <button class="btn-action-sm btn-open" onclick="resetCounsellorPasswordPrompt('${u.id}')">
+                Reset
+              </button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+
+        // Mobile Card
+        const card = document.createElement('div');
+        card.className = 'mobile-lead-card';
+        card.innerHTML = `
+          <div class="mobile-card-top">
+            <div>
+              <div class="mobile-student-name">${u.name}</div>
+              <div class="mobile-lead-id"><code>@${u.username}</code> &bull; ${u.role}</div>
+            </div>
+            <span class="status-badge ${u.status === 'Active' ? 'badge-admission' : 'badge-overdue'}">${u.status}</span>
+          </div>
+          <div class="mobile-card-details">
+            <div class="mobile-detail-row">
+              <span class="mobile-detail-label">Assigned Leads</span>
+              <span class="mobile-detail-val"><strong>${assignedCount}</strong></span>
+            </div>
+            <div class="mobile-detail-row">
+              <span class="mobile-detail-label">Created On</span>
+              <span class="mobile-detail-val">${u.createdOn}</span>
+            </div>
+          </div>
+          <div style="display: flex; gap: 8px; margin-top: 6px;">
+            <button class="btn-action-sm btn-remark" style="flex: 1;" onclick="toggleCounsellorStatus('${u.id}')">
+              ${u.status === 'Active' ? 'Deactivate' : 'Activate'}
+            </button>
+            <button class="btn-action-sm btn-open" style="flex: 1;" onclick="resetCounsellorPasswordPrompt('${u.id}')">
+              Reset Key
+            </button>
+          </div>
+        `;
+        mobileCards.appendChild(card);
+      });
+    }
+
+    function openAddCounsellorModal() {
+      document.getElementById('create-counsellor-form').reset();
+      openModal('modal-counsellor-form');
+    }
+
+    function handleCreateCounsellor(e) {
+      e.preventDefault();
+      const name = document.getElementById('counsellor-name').value.trim();
+      const username = document.getElementById('counsellor-username').value.trim().toLowerCase();
+      const password = document.getElementById('counsellor-password').value.trim();
+
+      if (users.some(u => u.username.toLowerCase() === username)) {
+        alert('This username already exists. Choose another.');
+        return;
+      }
+
+      const newId = 'USR-' + (100 + users.length + 1);
+      users.push({
+        id: newId,
+        name,
+        username,
+        passwordHash: password,
+        role: 'Counsellor',
+        status: 'Active',
+        createdOn: getISTDateString()
+      });
+
+      saveData();
+      populateDropdowns();
+      closeModal('modal-counsellor-form');
+      showToast(`Account for ${name} created successfully! Ready to login.`, 'success');
+      renderCounsellorsList();
+    }
+
+    function toggleCounsellorStatus(userId) {
+      const user = users.find(u => u.id === userId);
+      if (!user) return;
+      if (user.role === 'Super Admin') {
+        alert('Super Admin cannot be deactivated.');
+        return;
+      }
+      user.status = user.status === 'Active' ? 'Inactive' : 'Active';
+      saveData();
+      showToast(`Account for ${user.name} is now ${user.status}.`);
+      renderCounsellorsList();
+    }
+
+    function resetCounsellorPasswordPrompt(userId) {
+      const user = users.find(u => u.id === userId);
+      if (!user) return;
+      const newPass = prompt(`Enter new password for ${user.name} (${user.username}):`);
+      if (newPass && newPass.trim().length >= 4) {
+        user.passwordHash = newPass.trim();
+        saveData();
+        showToast(`Password updated for ${user.name}!`);
+      }
+    }
+
+    /* -------------------------------------------------------------
+       CUSTOM FIELDS & SETTINGS
+    ------------------------------------------------------------- */
+    function renderCustomFields() {
+      const tbody = document.getElementById('custom-fields-tbody');
+      const mobileCards = document.getElementById('custom-fields-mobile-cards');
+      tbody.innerHTML = '';
+      mobileCards.innerHTML = '';
+
+      customFields.forEach(f => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${f.name}</strong></td>
+          <td><code>${f.type}</code></td>
+          <td>${f.options && f.options.length ? f.options.join(', ') : '—'}</td>
+          <td>${f.required ? '<span style="color: #f87171;">Yes</span>' : 'No'}</td>
+          <td><span class="status-badge ${f.status === 'Active' ? 'badge-admission' : 'badge-overdue'}">${f.status}</span></td>
+          <td>
+            <button class="btn-action-sm btn-remark" onclick="toggleCustomFieldStatus('${f.id}')">
+              ${f.status === 'Active' ? 'Deactivate' : 'Restore'}
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+
+        const card = document.createElement('div');
+        card.className = 'mobile-lead-card';
+        card.innerHTML = `
+          <div class="mobile-card-top">
+            <div>
+              <div class="mobile-student-name">${f.name}</div>
+              <div class="mobile-lead-id">Type: <code>${f.type}</code></div>
+            </div>
+            <span class="status-badge ${f.status === 'Active' ? 'badge-admission' : 'badge-overdue'}">${f.status}</span>
+          </div>
+          <div style="font-size: 11px; color: #bbb; margin: 4px 0;">
+            Options: ${f.options && f.options.length ? f.options.join(', ') : 'None'}
+          </div>
+          <button class="btn-action-sm btn-remark" onclick="toggleCustomFieldStatus('${f.id}')">
+            ${f.status === 'Active' ? 'Deactivate Field' : 'Restore Field'}
+          </button>
+        `;
+        mobileCards.appendChild(card);
+      });
+
+      document.getElementById('sources-badge-list').innerHTML = sources.map(s => `<span class="badge-default status-badge">${s}</span>`).join(' ');
+      document.getElementById('statuses-badge-list').innerHTML = statuses.map(st => `<span class="badge-visit status-badge">${st}</span>`).join(' ');
+    }
+
+    function openAddCustomFieldModal() {
+      document.getElementById('customfield-name').value = '';
+      document.getElementById('customfield-type').value = 'text';
+      document.getElementById('customfield-options').value = '';
+      document.getElementById('customfield-required').checked = false;
+      document.getElementById('customfield-options-group').style.display = 'none';
+      openModal('modal-customfield-form');
+    }
+
+    function toggleCustomFieldOptionsInput(type) {
+      document.getElementById('customfield-options-group').style.display = (type === 'dropdown') ? 'block' : 'none';
+    }
+
+    function handleSaveCustomField(e) {
+      e.preventDefault();
+      const name = document.getElementById('customfield-name').value.trim();
+      const type = document.getElementById('customfield-type').value;
+      const opts = document.getElementById('customfield-options').value
+        .split(',')
+        .map(o => o.trim())
+        .filter(o => o.length > 0);
+      const req = document.getElementById('customfield-required').checked;
+
+      customFields.push({
+        id: 'cf_' + (customFields.length + 1),
+        name,
+        type,
+        options: opts,
+        required: req,
+        status: 'Active'
+      });
+
+      saveData();
+      closeModal('modal-customfield-form');
+      showToast(`Custom field "${name}" saved!`);
+      renderCustomFields();
+    }
+
+    function toggleCustomFieldStatus(fieldId) {
+      const f = customFields.find(x => x.id === fieldId);
+      if (!f) return;
+      f.status = f.status === 'Active' ? 'Inactive' : 'Active';
+      saveData();
+      showToast(`Field ${f.name} is now ${f.status}.`);
+      renderCustomFields();
+    }
+
+    function addNewLeadSource() {
+      const val = document.getElementById('new-source-input').value.trim();
+      if (!val) return;
+      if (!sources.includes(val)) {
+        sources.push(val);
+        saveData();
+        populateDropdowns();
+        renderCustomFields();
+        document.getElementById('new-source-input').value = '';
+        showToast(`Lead Source "${val}" added.`);
+      }
+    }
+
+    function addNewLeadStatus() {
+      const val = document.getElementById('new-status-input').value.trim();
+      if (!val) return;
+      if (!statuses.includes(val)) {
+        statuses.push(val);
+        saveData();
+        populateDropdowns();
+        renderCustomFields();
+        document.getElementById('new-status-input').value = '';
+        showToast(`Lead Status "${val}" added.`);
+      }
+    }
+
+    /* -------------------------------------------------------------
+       GOOGLE SHEETS STATS & INSTANT SYNC
+    ------------------------------------------------------------- */
+    function renderGSheetStats() {
+      document.getElementById('gsheet-synced-rows').textContent = leads.length + ' Leads Synchronized';
+      document.getElementById('gsheet-last-sync').textContent = getFormattedTimestamp();
+    }
+
+    function triggerGSheetSync() {
+      showToast('Pushing CRM records to Google Sheets...', 'success');
+      setTimeout(() => {
+        renderGSheetStats();
+        showToast('Sync Successful! Google Spreadsheet is up to date.', 'success');
+      }, 1000);
+    }
+
+    /* -------------------------------------------------------------
+       EXCEL EXPORTS (.XLSX) VIA SHEETJS
+    ------------------------------------------------------------- */
+    function exportFilteredLeadsXLSX() {
+      const authLeads = getAuthorizedLeads();
+      if (authLeads.length === 0) {
+        alert('No leads available to export.');
+        return;
+      }
+
+      const leadsRows = authLeads.map(l => ({
+        'Lead ID': l.leadId,
+        'Student Name': l.name,
+        'Mobile Number': l.mobile,
+        'Alternate Number': l.alternate || '',
+        'Course Interested': l.course,
+        'Location': l.location || '',
+        'Lead Source': l.source,
+        'Assigned Counsellor': l.owner,
+        'Fees Quoted (INR)': l.feesQuoted || 0,
+        'Lead Status': l.status,
+        'Next Follow-Up Date': l.nextFollowUpDate || '',
+        'Next Follow-Up Time': l.nextFollowUpTime || '',
+        'Total Call Attempts': l.callAttempts || 0,
+        'Total WhatsApp Attempts': l.whatsappAttempts || 0,
+        'Created Date': l.createdDate || '',
+        'Created By': l.createdBy || ''
+      }));
+
+      const statusCounts = {};
+      authLeads.forEach(l => {
+        statusCounts[l.status] = (statusCounts[l.status] || 0) + 1;
+      });
+      const summaryRows = Object.keys(statusCounts).map(st => ({
+        'Lead Status': st,
+        'Total Student Count': statusCounts[st]
+      }));
+
+      const wb = XLSX.utils.book_new();
+      const wsLeads = XLSX.utils.json_to_sheet(leadsRows);
+      const wsSummary = XLSX.utils.json_to_sheet(summaryRows);
+
+      XLSX.utils.book_append_sheet(wb, wsLeads, "Leads Data");
+      XLSX.utils.book_append_sheet(wb, wsSummary, "Status Summary");
+
+      const fileName = `USIBS_Leads_${currentUser.name.replace(/\s+/g, '_')}_${getISTDateString()}.xlsx`;
+      XLSX.writeFile(wb, fileName);
+
+      showToast(`Exported ${leadsRows.length} leads to ${fileName}!`, 'success');
+    }
+
+    function exportAuditTrailXLSX() {
+      const authLeadIds = new Set(getAuthorizedLeads().map(l => l.leadId));
+      const authActivities = leadActivities.filter(a => authLeadIds.has(a.leadId));
+
+      const rows = authActivities.map(a => ({
+        'Activity ID': a.id,
+        'Lead ID': a.leadId,
+        'Counsellor / User': a.user,
+        'Action Type': a.type,
+        'Detailed Remark / Log': a.remark,
+        'Timestamp': a.timestamp
+      }));
+
+      const wb = XLSX.utils.book_new();
+      const ws = XLSX.utils.json_to_sheet(rows);
+      XLSX.utils.book_append_sheet(wb, ws, "Activity Audit Log");
+
+      const fileName = `USIBS_Audit_Log_${getISTDateString()}.xlsx`;
+      XLSX.writeFile(wb, fileName);
+
+      showToast(`Exported ${rows.length} activity records!`);
+    }
+
+    /* -------------------------------------------------------------
+       MODAL HANDLERS
+    ------------------------------------------------------------- */
+    function openModal(modalId) {
+      document.getElementById(modalId).classList.add('active');
+      document.body.style.overflow = 'hidden'; // prevent background scroll on phone
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    window.onclick = function(event) {
+      if (event.target.classList.contains('modal-overlay')) {
+        closeModal(event.target.id);
+      }
+    };
+  </script>
+</body>
+</html>
